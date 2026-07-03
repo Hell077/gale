@@ -1,0 +1,78 @@
+# Go
+
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.a
+*.o
+*.out
+*.test
+
+# Go coverage
+*.coverprofile
+coverage.out
+coverage.html
+
+# Go workspace
+go.work.sum
+
+# Benchmark output
+*.prof
+*.pprof
+cpu.prof
+mem.prof
+trace.out
+
+
+bin/
+dist/
+build/
+tmp/
+out/
+
+# Environment
+
+.env
+.env.*
+!.env.example
+
+# Logs
+
+*.log
+logs/
+
+# IDE
+
+.idea/
+.vscode/
+*.iml
+
+# macOS
+
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+
+*~
+
+# Windows
+
+Thumbs.db
+Desktop.ini
+
+# Testing
+
+testdata/*.tmp
+
+# Generated files
+
+*.gen.go
+
+__debug_bin
+
+ vendor/

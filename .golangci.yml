@@ -1,0 +1,83 @@
+version: "2"
+
+run:
+  timeout: 5m
+  tests: true
+
+linters:
+  enable:
+    - errcheck
+    - govet
+    - staticcheck
+    - ineffassign
+    - unused
+    - bodyclose
+    - copyloopvar
+    - durationcheck
+    - errorlint
+    - exhaustive
+    - gocritic
+    - gosec
+    - misspell
+    - nilerr
+    - noctx
+    - prealloc
+    - revive
+    - unconvert
+    - unparam
+    - whitespace
+
+linters-settings:
+  errcheck:
+    check-type-assertions: true
+    check-blank: false
+
+  exhaustive:
+    check:
+      - switch
+      - map
+
+  gocritic:
+    enabled-tags:
+      - diagnostic
+      - performance
+      - style
+    disabled-checks:
+      - hugeParam
+      - rangeValCopy
+      - unnamedResult
+
+  gosec:
+    excludes:
+      - G104
+
+  revive:
+    severity: warning
+    rules:
+      - name: exported
+        disabled: true
+      - name: package-comments
+        disabled: true
+      - name: var-naming
+      - name: indent-error-flow
+      - name: error-return
+      - name: error-strings
+      - name: receiver-naming
+      - name: unused-parameter
+
+  misspell:
+    locale: US
+
+issues:
+  max-issues-per-linter: 0
+  max-same-issues: 0
+
+formatters:
+  enable:
+    - gofmt
+    - goimports
+
+output:
+  formats:
+    text:
+      path: stdout
