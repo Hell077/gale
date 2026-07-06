@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="./assets/gale.png" width="350" alt="Gale logo">
+</p>
+
 # Gale Mini Guide
 
 Gale is a small TCP message transport for Go processes, servers, and clusters. It sends binary framed messages with a `topic`, `offset`, and `data` payload.
