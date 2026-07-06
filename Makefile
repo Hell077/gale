@@ -1,6 +1,6 @@
 APP ?= gale
 HOST ?= 0.0.0.0
-PORT ?= 9000
+PORT ?= 7827
 ADDR ?= $(HOST):$(PORT)
 IMAGE ?= gale:local
 BIN_DIR ?= bin

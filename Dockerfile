@@ -19,8 +19,8 @@ WORKDIR /app
 COPY --from=build /out/gale /usr/local/bin/gale
 
 ENV GALE_HOST=0.0.0.0
-ENV GALE_PORT=9000
+ENV GALE_PORT=7827
 
-EXPOSE 9000
+EXPOSE 7827
 
 ENTRYPOINT ["gale"]

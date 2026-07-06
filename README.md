@@ -25,31 +25,37 @@ import "github.com/Hell077/gale/sdk"
 Run the TCP server directly:
 
 ```bash
-go run ./cmd -addr 0.0.0.0:9000
+go run ./cmd -addr 0.0.0.0:7827
 ```
 
 Or configure it with environment variables:
 
 ```bash
-GALE_HOST=0.0.0.0 GALE_PORT=9000 go run ./cmd
+GALE_HOST=0.0.0.0 GALE_PORT=7827 go run ./cmd
 ```
 
 `GALE_ADDR` can be used when you want to pass the full listen address:
 
 ```bash
-GALE_ADDR=127.0.0.1:9001 go run ./cmd
+GALE_ADDR=127.0.0.1:7828 go run ./cmd
 ```
 
 Build a local binary:
 
 ```bash
 go build -o bin/gale ./cmd
-./bin/gale -addr 0.0.0.0:9000
+./bin/gale -addr 0.0.0.0:7827
 ```
 
 The server listens until it receives `SIGINT` or `SIGTERM`. On shutdown it closes the TCP listener and active connections.
 
 ## Docker
+
+The Dockerfile is located at the repository root:
+
+```text
+./Dockerfile
+```
 
 Build the image:
 
@@ -60,21 +66,42 @@ docker build -t gale .
 Run it:
 
 ```bash
-docker run --rm -p 9000:9000 gale
+docker run --rm -p 7827:7827 gale
 ```
 
 Use a custom port:
 
 ```bash
-docker run --rm -e GALE_PORT=9001 -p 9001:9001 gale
+docker run --rm -e GALE_PORT=7828 -p 7828:7828 gale
 ```
+
+Pull the published image from Docker Hub:
+
+```bash
+docker pull alexeyovchinnikovhell077/gale:latest
+docker run --rm -p 7827:7827 alexeyovchinnikovhell077/gale:latest
+```
+
+The GitHub Actions workflow in `.github/workflows/dockerhub.yml` builds this
+Dockerfile when `Dockerfile`, `.dockerignore`, `cmd/**`, `internal/**`,
+`sdk/**`, or Go module files change. Pull requests only build the image for
+validation. Pushes and manual workflow runs publish the image to Docker Hub.
+
+Configure these repository secrets before publishing:
+
+- `DOCKERHUB_USERNAME`: `alexeyovchinnikovhell077`.
+- `DOCKERHUB_TOKEN`: Docker Hub access token with push access.
+
+Optional repository variable:
+
+- `DOCKERHUB_REPOSITORY`: Docker Hub repository name. Defaults to `gale`.
 
 Configuration order:
 
 1. `-addr`
 2. `GALE_ADDR`
 3. `GALE_HOST` and `GALE_PORT`
-4. default `0.0.0.0:9000`
+4. default `0.0.0.0:7827`
 
 ## Docker Compose Integration
 
@@ -88,9 +115,9 @@ services:
       context: ./gale
     environment:
       GALE_HOST: 0.0.0.0
-      GALE_PORT: 9000
+      GALE_PORT: 7827
     ports:
-      - "9000:9000"
+      - "7827:7827"
 ```
 
 If you publish Gale as an image, use it without `build`:
@@ -98,15 +125,15 @@ If you publish Gale as an image, use it without `build`:
 ```yaml
 services:
   gale:
-    image: your-registry/gale:latest
+    image: alexeyovchinnikovhell077/gale:latest
     environment:
       GALE_HOST: 0.0.0.0
-      GALE_PORT: 9000
+      GALE_PORT: 7827
     ports:
-      - "9000:9000"
+      - "7827:7827"
 ```
 
-Other services in the same compose network can connect to `gale:9000`.
+Other services in the same compose network can connect to `gale:7827`.
 
 ## SDK Server
 
@@ -122,7 +149,7 @@ import (
 )
 
 func main() {
-	server, err := sdk.Listen("127.0.0.1:9000")
+	server, err := sdk.Listen("127.0.0.1:7827")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -148,7 +175,7 @@ import (
 )
 
 func main() {
-	client, err := sdk.Connect("127.0.0.1:9000")
+	client, err := sdk.Connect("127.0.0.1:7827")
 	if err != nil {
 		log.Fatal(err)
 	}

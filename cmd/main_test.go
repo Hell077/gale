@@ -25,7 +25,7 @@ func TestResolveAddr(t *testing.T) {
 
 	t.Setenv("GALE_HOST", "")
 	t.Setenv("GALE_PORT", "")
-	if got := resolveAddr(""); got != "0.0.0.0:9000" {
+	if got := resolveAddr(""); got != "0.0.0.0:7827" {
 		t.Fatalf("expected default addr, got %q", got)
 	}
 }

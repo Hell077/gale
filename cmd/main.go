@@ -53,7 +53,7 @@ func resolveAddr(flagAddr string) string {
 
 	port := strings.TrimSpace(os.Getenv("GALE_PORT"))
 	if port == "" {
-		port = "9000"
+		port = "7827"
 	}
 
 	return host + ":" + port
