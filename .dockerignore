@@ -1,0 +1,13 @@
+.git
+.gitignore
+bin
+build
+dist
+out
+tmp
+*.test
+*.out
+coverage.out
+logs
+.env
+.env.*
