@@ -1,4 +1,7 @@
-FROM golang:1.26-alpine AS build
+FROM --platform=$BUILDPLATFORM golang:1.26-alpine AS build
+
+ARG TARGETOS
+ARG TARGETARCH
 
 WORKDIR /src
 
@@ -7,7 +10,7 @@ COPY cmd ./cmd
 COPY internal ./internal
 COPY sdk ./sdk
 
-RUN CGO_ENABLED=0 GOOS=linux go build -o /out/gale ./cmd
+RUN CGO_ENABLED=0 GOOS=$TARGETOS GOARCH=$TARGETARCH go build -o /out/gale ./cmd
 
 FROM alpine:3.22
 
